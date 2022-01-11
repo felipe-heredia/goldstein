@@ -2,9 +2,30 @@
   <header class="header">
     <h1>Goldstein</h1>
 
-    <button class="connect-wallet" @click="showConnect = true">
-      Connect wallet
-    </button>
+    <div>
+      <button
+        v-if="status === 'nonauthed'"
+        class="connect-wallet"
+        @click="showConnect = true"
+      >
+        Connect wallet
+      </button>
+
+      <button
+        v-if="status === 'authed'"
+        class="address-button"
+        @click="addressModalIsOpen = !addressModalIsOpen"
+      >
+        {{ displayFormat(address) }}
+        <ChevronDown />
+      </button>
+    </div>
+
+    <AddressModal
+      v-if="addressModalIsOpen"
+      :logout="logout"
+      :address="address"
+    />
 
     <div class="modal" v-show="showConnect">
       <div class="modal-content">
@@ -30,17 +51,26 @@
 
 <script>
 import { globalSigner } from '@/data/auth'
-import { X, Mail, Sprout } from 'lucide-vue'
+import { X, Mail, Sprout, ChevronDown } from 'lucide-vue'
 
 export default {
-  components: { Error: X, Mail, Sprout },
+  components: { Error: X, Mail, Sprout, ChevronDown },
 
   data() {
     return {
-      showConnect: false,
-      signer: {},
       address: '',
-      status: '',
+      showConnect: false,
+      signer: null,
+      status: 'nonauthed',
+      addressModalIsOpen: false,
+    }
+  },
+
+  mounted() {
+    const address = localStorage.getItem('@GOLDSTEIN:userAddress')
+    if (address) {
+      this.address = address
+      this.status = 'authed'
     }
   },
 
@@ -56,7 +86,9 @@ export default {
     },
 
     async handleLogin(signer) {
+      this.showConnect = false
       this.signer = signer
+
       signer
         .login()
         .then((data) => {
@@ -67,6 +99,22 @@ export default {
           localStorage.setItem('@GOLDSTEIN:userAddress', this.address)
           this.status = 'authed'
         })
+    },
+
+    logout() {
+      globalSigner.logout()
+    },
+
+    displayFormat(address) {
+      if (!address) {
+        return ''
+      }
+
+      return (
+        address.slice(0, 6) +
+        '....' +
+        address.slice(address.length - 4, address.length)
+      )
     },
   },
 }
@@ -92,6 +140,14 @@ header.header {
 
     &:hover {
       @apply bg-amber-400 text-zinc-700 rounded-3xl;
+    }
+  }
+
+  button.address-button {
+    display: flex;
+
+    svg {
+      margin-left: 0.3rem;
     }
   }
 
