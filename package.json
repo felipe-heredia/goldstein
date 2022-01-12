@@ -36,7 +36,8 @@
     "postcss": "^8.4.4",
     "prettier": "^2.5.1",
     "sass": "^1.46.0",
-    "sass-loader": "^10.1.1"
+    "sass-loader": "^10.1.1",
+    "vue-svg-loader": "^0.16.0"
   },
   "config": {
     "commitizen": {
