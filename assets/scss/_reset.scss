@@ -11,7 +11,7 @@ html {
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  @apply bg-amber-50;
   padding: 0;
   margin: 0;
 }

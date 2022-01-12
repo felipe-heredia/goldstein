@@ -20,10 +20,7 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
-  styleResources: {
-    scss: ['@/assests/scss/imports.scss'],
-  },
+  css: ['@/assets/scss/imports.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
@@ -31,17 +28,10 @@ export default {
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-  buildModules: ['@nuxtjs/tailwindcss', '@nuxtjs/style-resources'],
+  buildModules: ['@nuxtjs/tailwindcss'],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [],
-
-  rules: [
-    {
-      test: /\.s[ac]ss$/i,
-      use: ['style-loader', 'css-loader', 'sass-loader'],
-    },
-  ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
