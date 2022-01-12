@@ -122,12 +122,13 @@ export default {
 
 <style lang="scss" scoped>
 header.header {
-  @apply h-20 px-60 shadow-lg bg-gray-50;
+  @apply h-20 px-60 bg-slate-50;
 
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-shadow: rgba(54, 56, 112, 0.16) 0px 8px 56px;
 
   h1 {
     @apply text-amber-400 text-2xl;
