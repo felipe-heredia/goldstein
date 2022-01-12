@@ -2,6 +2,7 @@ const colors = require('tailwindcss/colors')
 
 module.exports = {
   content: [
+    './assets/scss/**.scss',
     './components/**/*.{js,vue,ts}',
     './layouts/**/*.vue',
     './pages/**/*.vue',
@@ -14,6 +15,7 @@ module.exports = {
       amber: colors.amber,
       gray: colors.gray,
       zinc: colors.zinc,
+      slate: colors.slate,
     },
     fontFamily: {
       sans: ['Poppins', 'sans-serif'],
