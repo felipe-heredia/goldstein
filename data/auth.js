@@ -2,7 +2,7 @@ import { Signer } from '@waves/signer'
 import { ProviderWeb } from '@waves.exchange/provider-web'
 import { ProviderCloud } from '@waves.exchange/provider-cloud'
 
-export class SignerWebHandler {
+class SignerWebHandler {
   signer
 
   constructor() {
@@ -13,7 +13,7 @@ export class SignerWebHandler {
   }
 }
 
-export class SignerEmailHandler {
+class SignerEmailHandler {
   signer
 
   constructor() {
@@ -22,10 +22,10 @@ export class SignerEmailHandler {
   }
 }
 
-export const signerWeb = new SignerWebHandler()
-export const signerEmail = new SignerEmailHandler()
+const signerWeb = new SignerWebHandler()
+const signerEmail = new SignerEmailHandler()
 
-export class GlobalSigner {
+class GlobalSigner {
   signer
   authorizationMethod
 
@@ -37,16 +37,13 @@ export class GlobalSigner {
   auth(authorizationMethod) {
     this.authorizationMethod = authorizationMethod
 
-    if (authorizationMethod == 'email') {
+    if (authorizationMethod === 'email') {
       this.signer = signerEmail.signer
-    } else if (authorizationMethod == 'seed') {
+    } else if (authorizationMethod === 'seed') {
       this.signer = signerWeb.signer
-    } else {
-      //this.signer = signerKeeper.signer
     }
 
     localStorage.setItem('@GOLDSTEIN:authMethod', authorizationMethod)
-    console.log('initialized with', authorizationMethod)
   }
 
   logout() {

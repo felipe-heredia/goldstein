@@ -66,14 +66,6 @@ export default {
     }
   },
 
-  mounted() {
-    const address = localStorage.getItem('@GOLDSTEIN:userAddress')
-    if (address) {
-      this.address = address
-      this.status = 'authed'
-    }
-  },
-
   methods: {
     async seedLogin() {
       globalSigner.auth('seed')
@@ -89,16 +81,16 @@ export default {
       this.showConnect = false
       this.signer = signer
 
-      signer
-        .login()
-        .then((data) => {
-          this.address = data.address
-          console.log(data)
+      signer.login().then((data) => {
+        this.address = data.address
+        this.status = 'authed'
+
+        this.$emit('login', {
+          signer: this.signer,
+          status: 'authed',
+          address: data.address,
         })
-        .then(() => {
-          localStorage.setItem('@GOLDSTEIN:userAddress', this.address)
-          this.status = 'authed'
-        })
+      })
     },
 
     logout() {
